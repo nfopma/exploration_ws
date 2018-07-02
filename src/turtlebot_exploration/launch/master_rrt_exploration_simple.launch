@@ -1,10 +1,8 @@
 <launch>
 
   <!-- Start the turtlebot -->
-  <group ns="/robot_1">
-    <include file="$(find turtlebot_bringup)/launch/minimal.launch">
-    <arg name="robot_name" value="robot_1" />
-  </include>
+
+  <include file="$(find turtlebot_bringup)/launch/minimal.launch" />
 
     <!-- Launch the 3D sensor -->
     <arg name="3d_sensor" default="$(env TURTLEBOT_3D_SENSOR)"/>  <!-- r200, kinect, asus_xtion_pro -->
@@ -15,16 +13,15 @@
 
       <!-- We must specify an absolute topic name because if not it will be prefixed by "$(arg camera)".
            Probably is a bug in the nodelet manager: https://github.com/ros/nodelet_core/issues/7 -->
-      <arg name="scan_topic" value="/robot_1/base_scan" />
+      <arg name="scan_topic" value="/base_scan" />
     </include>
 
     <!-- Move base and gmapping (standard configuration from turtlebot_navigation) -->
-    <include file="$(find rrt_exploration_tutorials)/launch/includes/move_baseSafe.launch">
-      <arg name="namespace" value="robot_1"/>
+    <include file="$(find rrt_exploration_tutorials)/launch/includes/move_baseSafe_simple.launch">
+
     </include>
-  </group>
 
   <!-- RRT Exploration -->
-  <include file="$(find rrt_exploration)/launch/single.launch" />
+  <include file="$(find rrt_exploration)/launch/simple.launch" />
 
 </launch>
